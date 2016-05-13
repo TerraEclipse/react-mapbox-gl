@@ -1,5 +1,5 @@
 {
-  "name": "react-mapbox-gl",
+  "name": "@terraeclipse/react-mapbox-gl",
   "version": "0.9.2",
   "description": "A React binding of mapbox-gl-js",
   "main": "dist/index.js",
