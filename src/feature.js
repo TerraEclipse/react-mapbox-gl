@@ -4,6 +4,7 @@ const Feature = () => null;
 
 Feature.propTypes = {
   coordinates: PropTypes.array.isRequired,
+  properties: PropTypes.object,
   onClick: PropTypes.func,
   onHover: PropTypes.func,
   onEndHover: PropTypes.func,
