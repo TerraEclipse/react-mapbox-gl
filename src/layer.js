@@ -66,10 +66,10 @@ export default class Layer extends Component {
     }
   };
 
-  feature = (props, id) => ({
+  feature = (props) => ({
     type: "Feature",
     geometry: this.geometry(props.coordinates),
-    properties: { id }
+    properties: props.properties
   })
 
   onClick = evt => {
@@ -171,7 +171,7 @@ export default class Layer extends Component {
     const children = [].concat(this.props.children);
 
     const features = children
-      .map(({ props }, id) => this.feature(props, id))
+      .map(({ props }) => this.feature(props))
       .filter(Boolean);
 
     this.source.setData({
