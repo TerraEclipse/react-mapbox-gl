@@ -27,7 +27,8 @@ export default class Layer extends Component {
     sourceOptions: PropTypes.object,
     layerOptions: PropTypes.object,
     sourceId: PropTypes.string,
-    before: PropTypes.string
+    before: PropTypes.string,
+    filter: PropTypes.array,
   };
 
   static defaultProps = {
@@ -51,6 +52,11 @@ export default class Layer extends Component {
   geometry = (coordinates, outline) => {
     switch (this.props.type) {
       case "symbol":
+      case "circle": return {
+        type: "Point",
+        coordinates
+      };
+
       case "circle": return {
         type: "Point",
         coordinates
@@ -143,7 +149,7 @@ export default class Layer extends Component {
 
   componentWillMount() {
     const { id, source } = this;
-    const { type, layout, paint, layerOptions, sourceId, before } = this.props;
+    const { type, layout, paint, layerOptions, sourceId, before, filter} = this.props;
     const { map } = this.context;
 
     const layer = {
@@ -158,8 +164,10 @@ export default class Layer extends Component {
     if(!sourceId) {
       map.addSource(id, source);
     }
+    if (filter) layer.filter = filter
 
-    map.addLayer(layer, before);
+    map.addSource(id, source);
+    map.addLayer(layer);
 
     map.on("click", this.onClick);
     map.on("mousemove", this.onMouseMove);
