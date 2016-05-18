@@ -48,7 +48,7 @@ export default class Layer extends Component {
     }
   });
 
-  geometry = coordinates => {
+  geometry = (coordinates, outline) => {
     switch (this.props.type) {
       case "symbol":
       case "circle": return {
@@ -61,10 +61,19 @@ export default class Layer extends Component {
         coordinates
       };
 
-      case "line": return {
-        type: "LineString",
-        coordinates
-      };
+      case "line":
+        let featureType
+
+        if (outline) {
+          featureType = coordinates.length > 1 ? "MultiPolygon" : "Polygon"
+        } else {
+          featureType = "LineString"
+        }
+
+        return {
+          type: featureType,
+          coordinates
+        };
 
       default: return null;
     }
@@ -72,7 +81,7 @@ export default class Layer extends Component {
 
   feature = (props, id) => ({
     type: "Feature",
-    geometry: this.geometry(props.coordinates),
+    geometry: this.geometry(props.coordinates, props.outline),
     properties: Object.assign((props.properties || {}), {id: id})
   })
 
