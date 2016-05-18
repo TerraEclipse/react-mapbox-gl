@@ -17,11 +17,13 @@ export default class Layer extends Component {
     type: PropTypes.oneOf([
       "symbol",
       "line",
-      "fill"
+      "fill",
+      "circle"
     ]),
 
     layout: PropTypes.object,
     paint: PropTypes.object,
+    filter: PropTypes.array,
     sourceOptions: PropTypes.object
   };
 
@@ -48,6 +50,11 @@ export default class Layer extends Component {
   geometry = (coordinates, outline) => {
     switch (this.props.type) {
       case "symbol": return {
+        type: "Point",
+        coordinates
+      };
+
+      case "circle": return {
         type: "Point",
         coordinates
       };
@@ -139,7 +146,7 @@ export default class Layer extends Component {
 
   componentWillMount() {
     const { id, source } = this;
-    const { type, layout, paint } = this.props;
+    const { type, layout, paint, filter } = this.props;
     const { map } = this.context;
 
     const layer = {
@@ -149,6 +156,8 @@ export default class Layer extends Component {
       layout,
       paint
     };
+
+    if (filter) layer.filter = filter
 
     map.addSource(id, source);
     map.addLayer(layer);
