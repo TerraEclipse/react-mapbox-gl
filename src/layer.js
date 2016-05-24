@@ -24,6 +24,8 @@ export default class Layer extends Component {
     layout: PropTypes.object,
     paint: PropTypes.object,
     filter: PropTypes.array,
+    source: PropTypes.object,
+    sourceLayer: PropTypes.string,
     sourceOptions: PropTypes.object
   };
 
@@ -39,10 +41,9 @@ export default class Layer extends Component {
   identifier = this.props.id || generateID();
   id = `layer-${this.identifier}`;
 
-  source = new MapboxGl.GeoJSONSource({
-    ...this.props.sourceOptions,
+  source = this.props.source.data || new MapboxGl.GeoJSONSource({
     data: {
-      type: "FeatureCollection",
+      type: "Feature Collection",
       features: []
     }
   });
@@ -152,6 +153,7 @@ export default class Layer extends Component {
     const layer = {
       id,
       source: id,
+      "source-layer": this.props.source.name,
       type,
       layout,
       paint
@@ -188,14 +190,16 @@ export default class Layer extends Component {
   render() {
     const children = [].concat(this.props.children);
 
-    const features = children
-      .map(({ props }, id) => this.feature(props, id))
-      .filter(Boolean);
+    if (this.props.children) {
+      const features = children
+        .map(({ props }, id) => this.feature(props, id))
+        .filter(Boolean);
 
-    this.source.setData({
-      type: "FeatureCollection",
-      features
-    });
+      this.source.setData({
+        type: "FeatureCollection",
+        features
+      });
+    }
 
     return null;
   }
