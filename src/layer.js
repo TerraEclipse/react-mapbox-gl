@@ -42,6 +42,7 @@ export default class Layer extends Component {
   id = `layer-${this.identifier}`;
 
   source = this.props.source ? this.props.source.data : new MapboxGl.GeoJSONSource({
+    ...this.props.sourceOptions,
     data: {
       type: "Feature Collection",
       features: []
