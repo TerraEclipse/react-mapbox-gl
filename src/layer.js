@@ -43,7 +43,7 @@ export default class Layer extends Component {
 
   id = this.props.id || `layer-${generateID()}`;
 
-  source = this.props.source.data || new MapboxGl.GeoJSONSource({
+  source = this.props.source ? this.props.source.data : new MapboxGl.GeoJSONSource({
     data: {
       type: "Feature Collection",
       features: []
@@ -167,6 +167,7 @@ export default class Layer extends Component {
       map.addSource(id, source);
     }
     if (filter) layer.filter = filter
+    if (this.props.source) layer["source-layer"] = this.props.source.name
 
     map.addSource(id, source);
     map.addLayer(layer);
