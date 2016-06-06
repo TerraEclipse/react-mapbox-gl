@@ -227,6 +227,11 @@ export default class Layer extends Component {
         type: "FeatureCollection",
         features
       });
+    } else if (!this.props.source) {
+      this.source.setData({
+        type: "FeatureCollection",
+        features: []
+      })
     }
 
     return null;
