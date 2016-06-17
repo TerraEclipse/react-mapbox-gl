@@ -20,7 +20,6 @@ const buttonStyle = {
   backgroundColor: "#f9f9f9",
   opacity: .95,
   transition: "background-color 0.16s ease-out",
-  cursor: "pointer",
   border: 0,
   height: 26,
   width: 26,
