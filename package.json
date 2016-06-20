@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/alex3165/react-mapbox-gl#readme",
   "dependencies": {
-    "@terraeclipse/mapbox-gl": "^0.21.0"
+    "@terraeclipse/mapbox-gl": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^15.0.1",
