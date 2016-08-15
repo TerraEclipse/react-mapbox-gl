@@ -26,7 +26,7 @@ export default class Layer extends Component {
     paint: PropTypes.object,
     source: PropTypes.object,
     sourceLayer: PropTypes.string,
-    sourceOptions: PropTypes.object
+    sourceOptions: PropTypes.object,
     layerOptions: PropTypes.object,
     sourceId: PropTypes.string,
     before: PropTypes.string,
