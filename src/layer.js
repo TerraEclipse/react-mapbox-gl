@@ -157,16 +157,12 @@ export default class Layer extends Component {
     const layer = {
       id,
       source: sourceId || id,
-      "source-layer": this.props.source.name,
       type,
       layout,
       paint,
       ...layerOptions
     };
 
-    if(!sourceId) {
-      map.addSource(id, source);
-    }
     if (filter) layer.filter = filter
     if (this.props.source) layer["source-layer"] = this.props.source.name
 
